@@ -1,0 +1,108 @@
+1. Find the first h1 element on the main page.
+
+let firstH1 = document.evaluate(
+    '//h1[1]',
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null
+).singleNodeValue;
+
+if (firstH1) {
+    console.log('First h1 element found:', firstH1);
+} else {
+    console.log('First h1 element not found.');
+}
+
+2. Find all images that have an 'alt' attribute.
+let imagesWithAlt = document.evaluate(
+    '//img[@alt]',
+    document,
+    null,
+    XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+    null
+);
+
+console.log(`Found ${imagesWithAlt.snapshotLength} images with alt attribute.`);
+
+for (let i = 0; i < imagesWithAlt.snapshotLength; i++) {
+    let img = imagesWithAlt.snapshotItem(i);
+    console.log('Image with alt:', img);
+}
+
+3. Find the button with the text "Start forming a habit!".
+let buttonResult = document.evaluate(
+    "//button[normalize-space(text())='Start forming a habit!']",
+    document,
+    null,
+    XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+    null
+);
+
+let buttonCount = buttonResult.snapshotLength;
+
+if (buttonCount > 0) {
+    console.log(`Found ${buttonCount} button(s) with the text "Start forming a habit!".`);
+    for (let i = 0; i < buttonCount; i++) {
+        let button = buttonResult.snapshotItem(i);
+        console.log('Button found:', button);
+    }
+} else {
+    console.log('No button found with the text "Start forming a habit!".');
+}
+
+4.Check for the presence of a search icon on the webpage.
+let searchIconResult = document.evaluate(
+    "//img[contains(@alt, 'Internal search button') and @src='assets/img/search.svg']",
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null
+);
+
+let searchIcon = searchIconResult.singleNodeValue;
+
+if (searchIcon) {
+    console.log('Search icon found.');
+
+    let altText = searchIcon.getAttribute('alt');
+    if (altText && altText === 'Internal search button') {
+        console.log('Search icon has correct alt text:', altText);
+    } else {
+        console.log('Search icon alt text is incorrect or missing.');
+    }
+
+    let srcPath = searchIcon.getAttribute('src');
+    if (srcPath === 'assets/img/search.svg') {
+        console.log('Search icon has correct src path:', srcPath);
+    } else {
+        console.log('Search icon src path is incorrect or missing.');
+    }
+
+} else {
+    console.log('Search icon not found.');
+}
+
+5. Find them, check their state (checked or not), and display a message about the number of checked and unchecked checkboxes.
+let checkboxes = document.evaluate(
+    "//*[@class='privacy-wrapper']//following::input[@type='checkbox']",
+    document,
+    null,
+    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
+);
+
+let checkedCount = 0;
+let uncheckedCount = 0;
+
+for (let i = 0; i < checkboxes.snapshotLength; i++) {
+    let checkbox = checkboxes.snapshotItem(i);
+    if (checkbox.checked) {
+        checkedCount++;
+    } else {
+        uncheckedCount++;
+    }
+}
+
+console.log(`Checked checkboxes: ${checkedCount}`);
+console.log(`Unchecked checkboxes: ${uncheckedCount}`);

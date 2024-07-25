@@ -1,0 +1,35 @@
+1. Find the first h1 element on the main page.
+let firstH1 = $x('//h1')[0];
+if (firstH1) {
+    console.log('First h1 element found:', firstH1);
+} else {
+    console.log('First h1 element not found.');
+}
+
+2. Find all images that have an 'alt' attribute.
+let imagesWithAlt = $x('//img[@alt]');
+console.log(`Found ${imagesWithAlt.length} images with alt attribute.`);
+imagesWithAlt.forEach(img => console.log('Image with alt:', img));
+
+3. Find the button with the text "Start forming a habit!".
+let buttons = $x("//button[text()='Start forming a habit!']");
+console.log(`Found ${buttons.length} button(s) with text "Start forming a habit!".`);
+buttons.forEach(btn => console.log('Button found:', btn));
+
+4.Check for the presence of a search icon on the webpage.
+let searchIcons = $x("//*[@class='search-icon']");
+if (searchIcons.length > 0) {
+    console.log(`Found ${searchIcons.length} search icon(s).`);
+    searchIcons.forEach(icon => console.log('Search icon found:', icon));
+} else {
+    console.log('No search icons found.');
+}
+
+5.Check for the presence of checkboxes.
+let checkboxes = $x("//input[@type='checkbox']");
+if (checkboxes.length > 0) {
+    console.log(`Found ${checkboxes.length} checkboxes.`);
+    checkboxes.forEach(checkbox => console.log('Checkbox found:', checkbox));
+} else {
+    console.log('No checkboxes found.');
+}
